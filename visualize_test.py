@@ -31,11 +31,7 @@ cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.3# Threshold
 cfg.MODEL.WEIGHTS = "./output/model_final.pth"
 cfg.MODEL.DEVICE = "cuda" # cpu or cuda
 cfg.MODEL.ROI_HEADS.NUM_CLASSES = 10  # 3 classes (data, fig, hazelnut)
-cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = (
-    128
-)  # faster, and good enough for this toy dataset
-# cfg.MODEL.RETINANET.NUM_CLASSES = 10
-# Create predictor
+
 predictor = DefaultPredictor(cfg)
 print(MetadataCatalog.get('dataset_train'))
 # predictor.test()
