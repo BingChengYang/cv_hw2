@@ -23,7 +23,7 @@ imgs = [f for f in dir if isfile(join('./test/', f))]
 
 cfg = get_cfg()
 cfg.merge_from_file(
-    "./configs/COCO-Detection/faster_rcnn_R_50_FPN_1x.yaml"
+    "./configs/COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml"
 )
 cfg.DATASETS.TEST = ("dataset_train",)
 cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.3# Threshold

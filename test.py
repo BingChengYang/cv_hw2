@@ -26,7 +26,7 @@ cfg.merge_from_file(
     "./configs/COCO-Detection/faster_rcnn_R_50_FPN_1x.yaml"
 )
 cfg.DATASETS.TEST = ("dataset_train",)
-cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.3# Threshold
+cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0# Threshold
 # cfg.MODEL.RETINANET.SCORE_THRESH_TEST = 0.0001
 cfg.MODEL.WEIGHTS = "./output/model_final.pth"
 cfg.MODEL.DEVICE = "cuda" # cpu or cuda
@@ -59,14 +59,6 @@ for i in range(len(imgs)):
     for k in range(len(label)):
         if label[k] == 0:
             label[k] = 10
-    # v = Visualizer(image[:, :, ::-1],
-    #             scale=1,
-    #             metadata=MetadataCatalog.get('dataset_train'),
-    #             instance_mode=ColorMode.IMAGE
-    #             )
-    # v = v.draw_instance_predictions(output["instances"].to("cpu"))
-    # cv2.imshow('images', v.get_image()[:, :, ::-1])
-    # cv2.waitKey(0)
     dict_ans['bbox'] = bbox
     dict_ans['score'] = score.tolist()
     dict_ans['label'] = label
