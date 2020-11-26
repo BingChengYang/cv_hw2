@@ -11,7 +11,11 @@ from detectron2.data import MetadataCatalog, DatasetCatalog
 from os import listdir
 from os.path import isfile, join
 import json
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--test_model", default="model_final.pkl")
+args = parser.parse_args()
 dir = os.listdir('./test')
 dir.sort()
 dir.sort(key = lambda x: int(x[:-4]))
@@ -25,7 +29,7 @@ cfg.merge_from_file(
 )
 cfg.DATASETS.TEST = ("dataset_train",)
 cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0
-cfg.MODEL.WEIGHTS = "./output/model_final.pth"
+cfg.MODEL.WEIGHTS = os.path.join('./output', args.test_model)
 cfg.MODEL.DEVICE = "cuda"
 cfg.MODEL.ROI_HEADS.NUM_CLASSES = 10
 
