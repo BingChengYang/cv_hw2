@@ -5,16 +5,8 @@ import cv2
 
 
 dataset = {'images':[], 'categories':[], 'annotations':[]}
-# with open(os.path.join("./dataset_coco/", 'classes.txt')) as f:
-#     classes = f.read().strip().split()
 
 for i in range(10):
-    # dataset['categories'].append({
-    #     'id': i, 
-    #     'name': str(i), 
-    #     'supercategory': 'digit'
-    # })
-
     if i == 0:
         dataset['categories'].append({'id': 0, 'name': str(10), 'supercategory': 'digit'})
     else:

@@ -1,5 +1,4 @@
 from detectron2.engine import DefaultPredictor
-from detectron2.data import MetadataCatalog
 from detectron2.config import get_cfg
 from detectron2.utils.visualizer import ColorMode, Visualizer
 from detectron2 import model_zoo
@@ -12,11 +11,10 @@ from detectron2.data import MetadataCatalog, DatasetCatalog
 from os import listdir
 from os.path import isfile, join
 import json
+
 dir = os.listdir('./test')
 dir.sort()
 dir.sort(key = lambda x: int(x[:-4]))
-
-
 register_coco_instances("dataset_train", {}, "./dataset_coco/annotations/train.json", "./dataset_coco/images")
 
 imgs = [f for f in dir if isfile(join('./test/', f))]
@@ -26,19 +24,13 @@ cfg.merge_from_file(
     "./configs/COCO-Detection/faster_rcnn_R_50_FPN_1x.yaml"
 )
 cfg.DATASETS.TEST = ("dataset_train",)
-cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0# Threshold
-# cfg.MODEL.RETINANET.SCORE_THRESH_TEST = 0.0001
+cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0
 cfg.MODEL.WEIGHTS = "./output/model_final.pth"
-cfg.MODEL.DEVICE = "cuda" # cpu or cuda
-cfg.MODEL.ROI_HEADS.NUM_CLASSES = 10  # 3 classes (data, fig, hazelnut)
-cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = (
-    128
-)  # faster, and good enough for this toy dataset
-# cfg.MODEL.RETINANET.NUM_CLASSES = 10
-# Create predictor
+cfg.MODEL.DEVICE = "cuda"
+cfg.MODEL.ROI_HEADS.NUM_CLASSES = 10
+
 predictor = DefaultPredictor(cfg)
 print(MetadataCatalog.get('dataset_train'))
-# predictor.test()
 ans = []
 for i in range(len(imgs)):
     print(i)
